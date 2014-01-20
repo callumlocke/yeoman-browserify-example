@@ -1,1 +1,2 @@
-console.log('\'Allo \'Allo!');
+var foo = require('./foo');
+console.log(foo.addFive(3));

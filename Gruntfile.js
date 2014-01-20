@@ -29,7 +29,7 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-                tasks: ['jshint'],
+                tasks: ['jshint', 'browserify'],
                 options: {
                     livereload: true
                 }
@@ -336,7 +336,8 @@ module.exports = function (grunt) {
         concurrent: {
             server: [
                 'compass:server',
-                'copy:styles'
+                'copy:styles',
+                'browserify'
             ],
             test: [
                 'copy:styles'
@@ -347,6 +348,18 @@ module.exports = function (grunt) {
                 'imagemin',
                 'svgmin'
             ]
+        },
+
+        // Browserify your main JavaScript
+        browserify: {
+            main: {
+                options: {
+                    debug: true
+                },
+                files: {
+                    '.tmp/scripts/bundle.js': ['app/scripts/main.js']
+                }
+            }
         }
     });
 
@@ -387,6 +400,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'browserify',
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
