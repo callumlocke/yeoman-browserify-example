@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             js: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+                files: ['<%= yeoman.app %>/scripts/{,*/}*.js', '<%= yeoman.app %>/templates/{,*/}*.ms'],
                 tasks: ['jshint', 'browserify'],
                 options: {
                     livereload: true
@@ -354,6 +354,7 @@ module.exports = function (grunt) {
         browserify: {
             main: {
                 options: {
+                    transform: ['browserify-hogan'],
                     debug: true
                 },
                 files: {
